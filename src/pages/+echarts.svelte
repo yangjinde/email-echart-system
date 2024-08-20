@@ -5,7 +5,7 @@
     // 在组件挂载时初始化图表
     onMount(() => {
         // 获取 DOM 元素
-        const chartDom = document.getElementById('main') as HTMLElement;
+        const chartDom = document.getElementById('echarts-main') as HTMLElement;
 
         // 初始化 ECharts 实例
         const myChart = echarts.init(chartDom);
@@ -110,10 +110,10 @@
 </script>
 
 <style>
-    #main {
+    #echarts-main {
         width: 100%;
-        height: 600px;
+        height: 750px;
     }
 </style>
 
-<div id="main"></div>
+<div id="echarts-main" data-testid="echarts-main" class="bg-gray-100">2023 Sales Statistical Analysis</div>

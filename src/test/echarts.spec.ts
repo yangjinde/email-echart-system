@@ -1,32 +1,32 @@
 import { render, waitFor, fireEvent, screen } from '@testing-library/svelte';
 import '@testing-library/jest-dom';
+import { describe, it, expect, vi } from 'vitest';
 import Page from '../pages/+echarts.svelte';
 
 describe('Page', () => {
 
-    test('test echarts style', () => {
-        const { container, getByText } = render(Page);
-
-        // 检查图表容器是否存在
-        const chartElement = container.querySelector('#network-chart');
-        expect(chartElement).toBeInTheDocument();
-
-        // @ts-ignore
-        const style = getComputedStyle(chartElement);
-        expect(style.backgroundColor).toBe('rgba(0, 0, 0, 0)');
-
-        // @ts-ignore
-        const className = chartElement.className;
-        expect(className).toContain('svelte-1odnn5');
-
+    // test render the component
+    it('test render the component', () => {
+        const { container } = render(Page);
+        expect(container).toBeTruthy();
     });
 
-    test("test echarts container style ", () => {
-        const { container } = render(Page)
-        const networkChartDiv = screen.getByTestId("network-chart")
-        expect(networkChartDiv.classList).toContain("chart_style")
-        expect(networkChartDiv.style.width).toEqual("900px");
-        expect(networkChartDiv.style.height).toEqual("700px");
-    })
+    // test echarts main div background
+    test('test echarts main div background', () => {
+        const { container, getByText } = render(Page);
+        const echartsDiv = screen.getByTestId("echarts-main")
+        expect(echartsDiv.classList).toContain("bg-gray-100")
+    });
+
+    // test echarts title
+    test('test echarts title', async () => {
+        const { component } = render(Page, {
+            props: {
+                title: "2023 Sales Statistical Analysis"
+            }
+        });
+        const echartsMain=screen.getByTestId('echarts-main');
+        expect(echartsMain.textContent).toEqual('2023 Sales Statistical Analysis')
+    });
 
 });

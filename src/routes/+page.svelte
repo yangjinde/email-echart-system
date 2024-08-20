@@ -7,12 +7,12 @@
   </div>
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
     <p class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-      <a href="/email">Email Page</a>
+      <a href="/email" id = "EmailPage">Email Page</a>
     </p>
   </div>
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
     <p class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-      <a href="/echarts">Echarts Page</a>
+      <a href="/echarts" id = "EchartsPage">Echarts Page</a>
     </p>
   </div>
 </div>

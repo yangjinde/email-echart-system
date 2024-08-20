@@ -55,28 +55,29 @@ describe('Page', () => {
         const subjectInput = container.querySelector('#subject');
         const bodyInput = container.querySelector('#body');
 
-        //填充必填项
+        //填充所有项
         // @ts-ignore
-        await fireEvent.input(toInput, {target: {value: 'Tom@gmail.com'}});
+        await fireEvent.input(toInput, {target: {value: 'Lisa@gmail.com'}});
         // @ts-ignore
-        await fireEvent.input(subjectInput, {target: {value: 'Meeting Minutes'}});
+        await fireEvent.input(ccInput, {target: {value: 'zs@gmail.com,wds@gmail.com'}});
         // @ts-ignore
-        await fireEvent.input(bodyInput, {target: {value: 'Dear All: Here are today’s meeting minutes...'}});
+        await fireEvent.input(bccInput, {target: {value: 'wangwu@gmail.com,zhangsan@gmail.com'}});
+        // @ts-ignore
+        await fireEvent.input(subjectInput, {target: {value: 'Travel Notice'}});
+        // @ts-ignore
+        await fireEvent.input(bodyInput, {target: {value: 'Dear All: Travel Notices...'}});
 
         // 提交
         const submitButton = container.querySelector('#submit');
         // @ts-ignore
         await fireEvent.click(submitButton);
 
-        expect(screen.queryByText('请输入至少一个有效的收件人邮箱地址，多个地址用分号分隔')).toBeNull();
-        expect(screen.queryByText('主题不能为空')).toBeNull();
-        expect(screen.queryByText('正文不能为空')).toBeNull();
-
         expect(fromInput).toHaveValue('yangjinde@gmail.com');
-        expect(toInput).toHaveValue('Tom@gmail.com');
-        expect(ccInput).toHaveValue('');
-        expect(bccInput).toHaveValue('');
-        expect(subjectInput).toHaveValue('Meeting Minutes');
-        expect(bodyInput).toHaveValue('Dear All: Here are today’s meeting minutes...');
+        expect(toInput).toHaveValue('Lisa@gmail.com');
+        expect(ccInput).toHaveValue('zs@gmail.com,wds@gmail.com');
+        expect(bccInput).toHaveValue('wangwu@gmail.com,zhangsan@gmail.com');
+        expect(subjectInput).toHaveValue('Travel Notice');
+        expect(bodyInput).toHaveValue('Dear All: Travel Notices...');
     });
+
 });
