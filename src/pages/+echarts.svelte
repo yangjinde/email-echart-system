@@ -121,7 +121,7 @@
 <style>
     #echarts-main {
         width: 100%;
-        height: 750px;
+        height: 740px;
     }
 </style>
 
