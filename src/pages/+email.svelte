@@ -22,6 +22,7 @@
   // 校验邮箱格式的正则表达式
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+  //验证邮箱是否合法
   function validateEmails(emails: string, requireAtLeastOne = false): boolean {
     const emailList = emails.split(';').map(email => email.trim());
     if (requireAtLeastOne && emailList.filter(email => email !== '').length === 0) {
@@ -30,6 +31,7 @@
     return emailList.every(email => email === '' || emailRegex.test(email));
   }
 
+  //验证所有必填字段是否已填写
   function validateField(field: string, value: string): boolean {
     if (field === 'from') {
       return value.trim() !== '' && emailRegex.test(value);
@@ -42,6 +44,7 @@
     }
   }
 
+  //失去焦点事件判断
   function handleBlur(event: Event) {
     const target = event.target as HTMLInputElement;
     const fieldName = target.id;
@@ -53,6 +56,7 @@
     });
   }
 
+  //提交表单
   function handleSubmit(event: Event) {
     event.preventDefault();
 
@@ -70,8 +74,8 @@
       return err;
     });
 
+    //所有验证提供提交表单
     if (!hasError) {
-      // 表单提交逻辑
       console.log('From:', $from);
       console.log('To:', $to);
       console.log('Cc:', $cc);
