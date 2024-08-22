@@ -39,9 +39,9 @@ describe('Page', () => {
         // @ts-ignore
         await fireEvent.click(submitButton);
 
-        expect(getByText('请输入至少一个有效的收件人邮箱地址，多个地址用分号分隔')).toBeInTheDocument();
-        expect(getByText('主题不能为空')).toBeInTheDocument();
-        expect(getByText('正文不能为空')).toBeInTheDocument();
+        expect(getByText('At least one valid recipient email address, multiple uses; separate')).toBeInTheDocument();
+        expect(getByText('Subject cannot be empty')).toBeInTheDocument();
+        expect(getByText('Body cannot be empty')).toBeInTheDocument();
     });
 
     //test submit when required items is not null

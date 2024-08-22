@@ -1,25 +1,25 @@
 <script lang="ts">
-    //导入onMount事件及echarts组件
+    //Import onCount events and echarts components
     import { onMount } from 'svelte';
     import * as echarts from 'echarts';
 
-    // 在组件挂载时初始化图表
+    // Initialize the chart during component mounting
     onMount(() => {
-        // 根据ID获取 DOM 元素
+        // Retrieve DOM elements based on ID
         const chartDom = document.getElementById('echarts-main') as HTMLElement;
 
-        // 初始化 ECharts 实例
+        // Initialize ECharts instance
         const myChart = echarts.init(chartDom);
 
-        // 配置项
+        // configuration item
         const option = {
-            //图表标题
+            //title
             title: {
                 text: '2023 Sales Statistical Analysis',
                 left: 'center',
                 bottom: 0
             },
-            //设置当鼠标悬浮在图表上时显示的提示信息框的样式和行为
+            //Set the style and behavior of the prompt information box displayed when the mouse hovers over the chart
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
@@ -37,11 +37,11 @@
                     saveAsImage: { show: true }
                 }
             },
-            //统计的项
+
             legend: {
                 data: ['Electronic ', 'Clothing', 'Sales']
             },
-            //横坐标，统计月份
+            //Horizontal axis, counting months
             xAxis: [
                 {
                     type: 'category',
@@ -51,7 +51,7 @@
                     }
                 }
             ],
-            // 配置图表中的两个不同的 y 轴
+            // Configure two different y-axis in the chart
             yAxis: [
                 {
                     type: 'value',
@@ -75,7 +75,7 @@
                 }
             ],
             series: [
-                //柱状图Electronic数据
+                //Bar Chart Electronic Data
                 {
                     name: 'Electronic ',
                     type: 'bar',
@@ -86,7 +86,7 @@
                     },
                     data: [350, 245, 410, 500, 986, 1356, 1123, 902, 753, 605, 504, 726]
                 },
-                //柱状图Clothing数据
+                //Bar chart Clothing data
                 {
                     name: 'Clothing',
                     type: 'bar',
@@ -98,7 +98,7 @@
                     data: [750, 886, 765, 451, 618, 1189, 890, 776, 659, 701, 800, 1156]
 
                 },
-                //折线图Clothing数据
+                //Line chart sales data
                 {
                     name: 'Sales',
                     type: 'line',
@@ -113,7 +113,6 @@
             ]
         };
 
-        // 设置配置项
         myChart.setOption(option);
     });
 </script>

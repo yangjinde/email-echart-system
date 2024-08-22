@@ -2,23 +2,23 @@
   import * as echarts from 'echarts';
   import { onMount } from 'svelte';
 
-  // 定义Node和边的数据类型
+  // Define the data types of Nodes and edges
   interface Node {
     id: string;
     name: string;
-    symbol?: string; // 自定义图标
-    symbolSize?: number; // 自定义图标大小
+    symbol?: string; // custom Icon
+    symbolSize?: number; // Customize icon size
   }
 
   interface Link {
     source: string;
     target: string;
-    name?: string; // Line名称或标签
+    name?: string; // Line name or label
   }
 
   let chart: echarts.ECharts | null = null;
 
-  // 示例数据
+  // node data
   const nodes: Node[] = [
     { id: '1', name: 'Node 1', symbol: 'pin', symbolSize: 50 },
     { id: '2', name: 'Node 2', symbol: 'rect', symbolSize: 60 },
@@ -37,11 +37,10 @@
     { source: '6', target: '5', name: 'Line 6-5' }
   ];
 
-  // 配置 ECharts 图表
   const option: echarts.EChartOption = {
     title: {
-      text: 'Echarts Network', // 图表标题
-      bottom: 0, // 标题位置
+      text: 'Echarts Network', // title
+      bottom: 0, // Title Position
       left: 'center'
     },
     series: [
@@ -51,8 +50,8 @@
         data: nodes.map(node => ({
           id: node.id,
           name: node.name,
-          symbol: node.symbol, // 使用自定义 symbol
-          symbolSize: node.symbolSize, // 使用自定义 symbolSize
+          symbol: node.symbol,
+          symbolSize: node.symbolSize,
           itemStyle: {
             borderColor: '#fff',
             borderWidth: 1,
@@ -61,24 +60,24 @@
           },
           label: {
             show: true,
-            position: 'right', // 标签显示在Node右侧
-            formatter: node.name // 显示Node名称
+            position: 'right',
+            formatter: node.name
           }
         })),
         links: links.map(link => ({
           source: link.source,
           target: link.target,
-          name: link.name, // 保存Line名称或标签
+          name: link.name,
           lineStyle: {
-            type: 'dashed', // 链接线样式
+            type: 'dashed', // Link line style
             color: 'source',
             curveness: 0.3,
             width: 2,
           },
-          symbol: ['none', 'arrow'], // 链接末端为箭头
-          symbolSize: 10, // 箭头大小
+          symbol: ['none', 'arrow'], // The end of the link is an arrow
+          symbolSize: 10,
           label: {
-            show: false // 隐藏Line上的标签，使用 tooltip 显示内容
+            show: false
           }
         })),
         emphasis: {
@@ -101,21 +100,21 @@
           show: false
         },
         force: {
-          repulsion: 3000, // 增大 repulsion 值使Node之间的距离变大
+          repulsion: 3000, // Increasing the repulsion value increases the distance between nodes
           gravity: 0.1
         },
         animation: true,
-        animationDuration: 2000, // 动画持续时间
-        animationEasing: 'cubicInOut' // 动画缓动效果
+        animationDuration: 2000, // Animation duration
+        animationEasing: 'cubicInOut' // Animation buffering effect
       }
     ],
     tooltip: {
       formatter: function (params) {
         if (params.dataType === 'edge') {
-          // 从 params.data.name 中获取Line名称
+          // form params.data.name  Line Name
           return params.data.name || 'Line';
         }
-        // 如果是Node，则显示Node的名称
+        // Node，show Node Name
         return params.data.name;
       }
     },
@@ -123,7 +122,6 @@
     animationEasingUpdate: 'quinticInOut'
   };
 
-  // 挂载图表
   onMount(() => {
     const chartDom = document.getElementById('network-chart')!;
     chart = echarts.init(chartDom);
@@ -131,12 +129,12 @@
 
     // 处理窗口大小调整
     window.addEventListener('resize', () => {
-      //chart?.resize();
+      chart?.resize();
     });
   });
 </script>
 
-<!-- 样式 -->
+<!-- CSS -->
 <style>
   #network-chart {
       width: 100%;
@@ -144,5 +142,5 @@
   }
 </style>
 
-<!-- 图表容器 -->
+<!-- Chart container -->
 <div id="network-chart" data-testid="network-chart" class="chart_style">Echarts Network</div>

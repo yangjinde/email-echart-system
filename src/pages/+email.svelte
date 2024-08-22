@@ -1,7 +1,7 @@
 <script lang="ts">
   import { writable } from 'svelte/store';
 
-  // 定义表单输入字段的可写存储
+  // Define writable storage for form input fields
   const from = writable('yangjinde@gmail.com');
   const to = writable('');
   const cc = writable('');
@@ -9,7 +9,7 @@
   const subject = writable('');
   const body = writable('');
 
-  // 定义错误状态存储
+  // Define error state storage
   const errors = writable({
     from: false,
     to: false,
@@ -19,10 +19,10 @@
     body: false,
   });
 
-  // 校验邮箱格式的正则表达式
+  // Validate regular expressions for email format
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  //验证邮箱是否合法
+  //Verify if the email is legitimate
   function validateEmails(emails: string, requireAtLeastOne = false): boolean {
     const emailList = emails.split(';').map(email => email.trim());
     if (requireAtLeastOne && emailList.filter(email => email !== '').length === 0) {
@@ -31,7 +31,7 @@
     return emailList.every(email => email === '' || emailRegex.test(email));
   }
 
-  //验证所有必填字段是否已填写
+  //Verify that all required fields have been filled in
   function validateField(field: string, value: string): boolean {
     if (field === 'from') {
       return value.trim() !== '' && emailRegex.test(value);
@@ -44,7 +44,7 @@
     }
   }
 
-  //失去焦点事件判断
+  //Loss of focus event judgment
   function handleBlur(event: Event) {
     const target = event.target as HTMLInputElement;
     const fieldName = target.id;
@@ -56,7 +56,7 @@
     });
   }
 
-  //提交表单
+  //Submit Form
   function handleSubmit(event: Event) {
     event.preventDefault();
 
@@ -74,66 +74,60 @@
       return err;
     });
 
-    //所有验证提供提交表单
+    //All verifications provide submission forms
     if (!hasError) {
-      console.log('From:', $from);
-      console.log('To:', $to);
-      console.log('Cc:', $cc);
-      console.log('Bcc:', $bcc);
-      console.log('Subject:', $subject);
-      console.log('Body:', $body);
-      alert("恭喜，邮件发送成功！")
+      alert("Congratulations, sent successfully!")
     }
   }
 </script>
 
 <main class="max-w-4xl mx-auto p-4">
-  <h1 class="text-2xl font-bold mb-4">电子邮件客户端模拟器</h1>
+  <h1 class="text-2xl font-bold mb-4">Email client simulator</h1>
   <form on:submit={handleSubmit} class="space-y-4">
     <div>
-      <label for="from" class="block text-sm font-medium text-gray-700">发件人</label>
+      <label for="from" class="block text-sm font-medium text-gray-700">From</label>
       <input id="from" bind:value={$from} type="text" class="mt-1 block w-full p-2 border {$errors.from ? 'border-red-500' : 'border-gray-300'} rounded-md" on:blur={handleBlur} disabled/>
       {#if $errors.from}
-        <p class="text-red-500 text-xs mt-1">请输入有效的发件人邮箱地址</p>
+        <p class="text-red-500 text-xs mt-1">Please enter a valid sender email address</p>
       {/if}
     </div>
     <div>
-      <label for="to" class="block text-sm font-medium text-gray-700">收件人</label>
-      <input id="to" placeholder="必填，至少一个邮件，多个用;分隔" bind:value={$to} type="text" class="mt-1 block w-full p-2 border {$errors.to ? 'border-red-500' : 'border-gray-300'} rounded-md" on:blur={handleBlur} />
+      <label for="to" class="block text-sm font-medium text-gray-700">To</label>
+      <input id="to" placeholder="Required, at least one email, multiple used; separate" bind:value={$to} type="text" class="mt-1 block w-full p-2 border {$errors.to ? 'border-red-500' : 'border-gray-300'} rounded-md" on:blur={handleBlur} />
       {#if $errors.to}
-        <p class="text-red-500 text-xs mt-1">请输入至少一个有效的收件人邮箱地址，多个地址用分号分隔</p>
+        <p class="text-red-500 text-xs mt-1">At least one valid recipient email address, multiple uses; separate</p>
       {/if}
     </div>
     <div>
-      <label for="cc" class="block text-sm font-medium text-gray-700">抄送</label>
-      <input id="cc" placeholder="非必填，多个用;分隔" bind:value={$cc} type="text" class="mt-1 block w-full p-2 border {$errors.cc ? 'border-red-500' : 'border-gray-300'} rounded-md" on:blur={handleBlur} />
+      <label for="cc" class="block text-sm font-medium text-gray-700">Cc</label>
+      <input id="cc" placeholder="Not required, multiple use; separate" bind:value={$cc} type="text" class="mt-1 block w-full p-2 border {$errors.cc ? 'border-red-500' : 'border-gray-300'} rounded-md" on:blur={handleBlur} />
       {#if $errors.cc}
-        <p class="text-red-500 text-xs mt-1">请输入有效的抄送邮箱地址，多个地址用分号分隔</p>
+        <p class="text-red-500 text-xs mt-1">Please enter a valid CC email address, separate multiple addresses with semicolons</p>
       {/if}
     </div>
     <div>
-      <label for="bcc" class="block text-sm font-medium text-gray-700">密送</label>
-      <input id="bcc" placeholder="非必填，多个用;分隔" bind:value={$bcc} type="text" class="mt-1 block w-full p-2 border {$errors.bcc ? 'border-red-500' : 'border-gray-300'} rounded-md" on:blur={handleBlur} />
+      <label for="bcc" class="block text-sm font-medium text-gray-700">Bcc</label>
+      <input id="bcc" placeholder="Not required, multiple use; separate" bind:value={$bcc} type="text" class="mt-1 block w-full p-2 border {$errors.bcc ? 'border-red-500' : 'border-gray-300'} rounded-md" on:blur={handleBlur} />
       {#if $errors.bcc}
-        <p class="text-red-500 text-xs mt-1">请输入有效的密送邮箱地址，多个地址用分号分隔</p>
+        <p class="text-red-500 text-xs mt-1">Please enter a valid confidential email address for multiple purposes;</p>
       {/if}
     </div>
     <div>
-      <label for="subject" class="block text-sm font-medium text-gray-700">主题</label>
-      <input id="subject" placeholder="请输入主题" bind:value={$subject} type="text" class="mt-1 block w-full p-2 border {$errors.subject ? 'border-red-500' : 'border-gray-300'} rounded-md" on:blur={handleBlur} />
+      <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+      <input id="subject" placeholder="Please enter the subject" bind:value={$subject} type="text" class="mt-1 block w-full p-2 border {$errors.subject ? 'border-red-500' : 'border-gray-300'} rounded-md" on:blur={handleBlur} />
       {#if $errors.subject}
-        <p class="text-red-500 text-xs mt-1">主题不能为空</p>
+        <p class="text-red-500 text-xs mt-1">Subject cannot be empty</p>
       {/if}
     </div>
     <div>
-      <label for="body" class="block text-sm font-medium text-gray-700">正文</label>
-      <textarea id="body" placeholder="请输入正文……" bind:value={$body} class="mt-1 block w-full p-2 border {$errors.body ? 'border-red-500' : 'border-gray-300'} rounded-md" rows="6" on:blur={handleBlur}></textarea>
+      <label for="body" class="block text-sm font-medium text-gray-700">Body</label>
+      <textarea id="body" placeholder="Please enter the body……" bind:value={$body} class="mt-1 block w-full p-2 border {$errors.body ? 'border-red-500' : 'border-gray-300'} rounded-md" rows="6" on:blur={handleBlur}></textarea>
       {#if $errors.body}
-        <p class="text-red-500 text-xs mt-1">正文不能为空</p>
+        <p class="text-red-500 text-xs mt-1">Body cannot be empty</p>
       {/if}
     </div>
     <div>
-      <button type="submit" id="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md">发送</button>
+      <button type="submit" id="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md">Send</button>
     </div>
   </form>
 </main>
