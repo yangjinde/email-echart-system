@@ -2,7 +2,7 @@
   import { writable } from 'svelte/store';
 
   // Define writable storage for form input fields
-  const from = writable('yangjinde@gmail.com');
+  const from = writable('');
   const to = writable('');
   const cc = writable('');
   const bcc = writable('');
@@ -11,12 +11,12 @@
 
   // Define error state storage
   const errors = writable({
-    from: false,
-    to: false,
+    from: true,
+    to: true,
     cc: false,
     bcc: false,
-    subject: false,
-    body: false,
+    subject: true,
+    body: true,
   });
 
   // Validate regular expressions for email format
@@ -36,7 +36,7 @@
     if (field === 'from') {
       return value.trim() !== '' && emailRegex.test(value);
     } else if (field === 'to') {
-      return validateEmails(value, true); // 收件人至少需要一个有效邮箱
+      return validateEmails(value, true);
     } else if (field === 'cc' || field === 'bcc') {
       return validateEmails(value);
     } else {
@@ -76,7 +76,18 @@
 
     //All verifications provide submission forms
     if (!hasError) {
-      alert("Congratulations, sent successfully!")
+      sendEmail();
+    }
+
+    //send Mail
+    async function sendEmail() {
+      const to = $to;
+      const cc = $cc;
+      const bcc = $bcc;
+      const subject = encodeURIComponent($subject);
+      const body = encodeURIComponent($body);
+      const mailToLink = 'mailto:'+to+'?subject='+subject+'&body='+body+'&cc='+cc+'&bcc='+bcc;
+      window.open(mailToLink);
     }
   }
 </script>
@@ -86,30 +97,30 @@
   <form on:submit={handleSubmit} class="space-y-4">
     <div>
       <label for="from" class="block text-sm font-medium text-gray-700">From</label>
-      <input id="from" bind:value={$from} type="text" class="mt-1 block w-full p-2 border {$errors.from ? 'border-red-500' : 'border-gray-300'} rounded-md" on:blur={handleBlur} disabled/>
+      <input id="from" placeholder="Required, need one email" bind:value={$from} type="text" class="mt-1 block w-full p-2 border {$errors.from ? 'border-red-500' : 'border-gray-300'} rounded-md" on:blur={handleBlur}/>
       {#if $errors.from}
-        <p class="text-red-500 text-xs mt-1">Please enter a valid sender email address</p>
+        <p class="text-red-500 text-xs mt-1">Please enter a valid email address</p>
       {/if}
     </div>
     <div>
       <label for="to" class="block text-sm font-medium text-gray-700">To</label>
-      <input id="to" placeholder="Required, at least one email, multiple used; separate" bind:value={$to} type="text" class="mt-1 block w-full p-2 border {$errors.to ? 'border-red-500' : 'border-gray-300'} rounded-md" on:blur={handleBlur} />
+      <input id="to" data-testid="to" placeholder="Required, at least one email, multiple used; separate" bind:value={$to} type="text" class="mt-1 block w-full p-2 border {$errors.to ? 'border-red-500' : 'border-gray-300'} rounded-md" on:blur={handleBlur} />
       {#if $errors.to}
-        <p class="text-red-500 text-xs mt-1">At least one valid recipient email address, multiple uses; separate</p>
+        <p class="text-red-500 text-xs mt-1">At least one valid recipient email address, multiple uses ; separate</p>
       {/if}
     </div>
     <div>
       <label for="cc" class="block text-sm font-medium text-gray-700">Cc</label>
       <input id="cc" placeholder="Not required, multiple use; separate" bind:value={$cc} type="text" class="mt-1 block w-full p-2 border {$errors.cc ? 'border-red-500' : 'border-gray-300'} rounded-md" on:blur={handleBlur} />
       {#if $errors.cc}
-        <p class="text-red-500 text-xs mt-1">Please enter a valid CC email address, separate multiple addresses with semicolons</p>
+        <p class="text-red-500 text-xs mt-1">Please enter a valid email address, multiple uses ; separate</p>
       {/if}
     </div>
     <div>
       <label for="bcc" class="block text-sm font-medium text-gray-700">Bcc</label>
       <input id="bcc" placeholder="Not required, multiple use; separate" bind:value={$bcc} type="text" class="mt-1 block w-full p-2 border {$errors.bcc ? 'border-red-500' : 'border-gray-300'} rounded-md" on:blur={handleBlur} />
       {#if $errors.bcc}
-        <p class="text-red-500 text-xs mt-1">Please enter a valid confidential email address for multiple purposes;</p>
+        <p class="text-red-500 text-xs mt-1">Please enter a valid email address, multiple uses ; separate</p>
       {/if}
     </div>
     <div>

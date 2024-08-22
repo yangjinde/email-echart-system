@@ -117,11 +117,6 @@
     });
 </script>
 
-<style>
-    #echarts-main {
-        width: 100%;
-        height: 740px;
-    }
-</style>
+<style>#echarts-main {width: 100%;height: 740px;}</style>
 
 <div id="echarts-main" data-testid="echarts-main" class="bg-gray-100">2023 Sales Statistical Analysis</div>
