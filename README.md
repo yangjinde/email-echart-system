@@ -24,7 +24,7 @@ npm run build
 npm run test
 ```
 
-##### 1.5 query code coverage
+##### 1.5 run Unit test coverage
 
 ```
 npx vitest run --coverage
