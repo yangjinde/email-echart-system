@@ -88,7 +88,7 @@
                             emphasis: {
                                 focus: 'adjacency',
                                 lineStyle: {
-                                    width: 10
+                                    width: 3
                                 }
                             }
                         }
