@@ -1,32 +1,50 @@
-#### 1.Run step
+#### 1 Technology stack
+```
+Svelte、Typescript、Tailwind CSS、Apache Echarts、Vitest
+```
 
-##### 1.1 install plugins
+#### 2 Create project
+```
+npm create svelte@latest email-echart-system
+```
 
+#### 3 Install plugins
+
+##### 3.1 Install Tailwind CSS
+```
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+
+##### 3.2 Install Vitest
+```
+npm install --save-dev vitest @testing-library/svelte
+```
+
+##### 3.3 Install Echarts
+```
+npm install echarts
+```
+
+#### 4 Run step
+
+##### 4.1 Install plugins
 ```
 npm install
 ```
 
-##### 1.2  system run
-
+##### 4.2 Run system
 ```
 npm run dev
 ```
 
-##### 1.3 system build
+#### 5 Run Unit Testing
 
-```
-npm run build
-```
-
-##### 1.4 system test
-
+##### 5.1 Run test
 ```
 npm run test
 ```
-
-##### 1.5 run Unit test coverage
-
+##### 5.2 Run Unit test coverage
 ```
 npx vitest run --coverage
 ```
-
