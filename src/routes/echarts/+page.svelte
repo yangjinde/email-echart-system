@@ -1,6 +1,6 @@
 <script lang="ts">
     import EchartsPage from '../../pages/+echarts.svelte';
-    import EchartsPage3 from '../../pages/+echarts-network.svelte';
+    import EchartsPage2 from '../../pages/+echarts-network.svelte';
 </script>
 
 <style>
@@ -21,6 +21,6 @@
         <svelte:component this={EchartsPage} />
     </div>
     <div class="echart">
-        <svelte:component this={EchartsPage3} />
+        <svelte:component this={EchartsPage2} />
     </div>
 </div>
