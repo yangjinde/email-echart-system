@@ -97,7 +97,7 @@
 
                 // Set the chart options
                 myChart?.hideLoading();
-                myChart?.setOption(option);
+                myChart?.setOption(option as any);
             })
             .catch(error => {
                 console.error('Error fetching graph data:', error);

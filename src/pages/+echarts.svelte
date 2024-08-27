@@ -80,7 +80,7 @@
                     name: 'Electronic ',
                     type: 'bar',
                     tooltip: {
-                        valueFormatter: function (value) {
+                        valueFormatter: function (value: string) {
                             return value + ' pcs';
                         }
                     },
@@ -91,7 +91,7 @@
                     name: 'Clothing',
                     type: 'bar',
                     tooltip: {
-                        valueFormatter: function (value) {
+                        valueFormatter: function (value: string) {
                             return value + ' pcs';
                         }
                     },
@@ -104,7 +104,7 @@
                     type: 'line',
                     yAxisIndex: 1,
                     tooltip: {
-                        valueFormatter: function (value) {
+                        valueFormatter: function (value: string) {
                             return value + ' $';
                         }
                     },
