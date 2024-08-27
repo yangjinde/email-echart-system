@@ -15,15 +15,14 @@ npm create svelte@latest email-echart-system
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 ```
-
-##### 3.2 Install Vitest
-```
-npm install --save-dev vitest @testing-library/svelte
-```
-
-##### 3.3 Install Echarts
+##### 3.2 Install Echarts
 ```
 npm install echarts
+```
+
+##### 3.3 Install Vitest
+```
+npm install --save-dev vitest @testing-library/svelte
 ```
 
 #### 4 Run step
