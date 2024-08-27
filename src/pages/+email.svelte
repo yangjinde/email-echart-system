@@ -51,7 +51,7 @@
     const value = target.value;
 
     errors.update(err => {
-      err[fieldName] = !validateField(fieldName, value);
+      (err as { [key: string]: boolean })[fieldName] =!validateField(fieldName, value);
       return err;
     });
   }
@@ -86,8 +86,8 @@
       const bcc = $bcc;
       const subject = encodeURIComponent($subject);
       const body = encodeURIComponent($body);
-      const mailToLink = 'mailto:'+to+'?subject='+subject+'&body='+body+'&cc='+cc+'&bcc='+bcc;
-      window.open(mailToLink);
+      const openMailUrl = 'mailto:'+to+'?subject='+subject+'&body='+body+'&cc='+cc+'&bcc='+bcc;
+      window.open(openMailUrl);
     }
   }
 </script>
